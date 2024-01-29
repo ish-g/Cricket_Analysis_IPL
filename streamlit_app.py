@@ -5,21 +5,6 @@ obj1 = an.Myclass()
 
 st.set_page_config(layout="wide")
 
-def set_custom_theme():
-    st.markdown("""
-        <style>
-            .stApp {
-                background-color: #ffffff;
-                color: #333333;
-            }
-            .stTextInput > div > div {
-                background-color: #FF5733;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-
-set_custom_theme()
-
 options = ['About', 'Season Wise Stats', 'Team Performance', 'Player Statistics', 'Match Insights',
            'Batsman Performance', 'Bowler Performance']
 st.sidebar.header('''
