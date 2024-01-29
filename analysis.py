@@ -68,8 +68,7 @@ class Myclass:
     def highest_run(self):  # 7- Highest Run scored by a team st.metrics
         temp_df = self.df1[['match_id', 'innings_id', 'runs']]
         temp_df1 = temp_df.groupby(['match_id', 'innings_id'])['runs'].sum().reset_index().sort_values(by='runs',
-                                                                                                       ascending=False).head(
-            1)
+                                                                                                       ascending=False).head(1)
         q7 = self.df1.loc[(self.df1['match_id'] == temp_df1['match_id'].iloc[0]) & (
                 self.df1['innings_id'] == temp_df1['innings_id'].iloc[0])].iloc[0, [1, 3, 4]]
         return temp_df1['runs'].iloc[0], q7['home_team'], q7['season']
