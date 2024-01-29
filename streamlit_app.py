@@ -13,7 +13,7 @@ def set_custom_theme():
                 color: #333333;
             }
             .stTextInput > div > div {
-                background-color: ##000000;
+                background-color: #000000;
             }
         </style>
     """, unsafe_allow_html=True)
