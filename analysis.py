@@ -125,15 +125,7 @@ class Myclass:
             ascending=False).astype('int')
         return pd.concat([matches_p_season, runs_p_season, strike_rate, total_4, total_6], axis=1)
 
-    def players_sr(self):  # 15- players strike rate
-        df = self.batter_df[['fullName', 'runs', 'ballsFaced']]
-        players_list = df.groupby('fullName')['runs'].sum().sort_values(ascending=False).iloc[:150].index.tolist()
-        runs = df.groupby('fullName')['runs'].sum()
-        balls = df.groupby('fullName')['ballsFaced'].sum()
-        strike_rate = ((runs / balls) * 100).round().rename('strike rate').sort_values(ascending=False)
-        return strike_rate.sort_values(ascending=False).loc[players_list]
-
-    def players_sr(self):  # 16- plotly strike rate of batsman
+    def players_sr(self):  # 15- plotly strike rate of batsman
         df = self.batter_df[['fullName', 'runs', 'ballsFaced']]
         players_list = df.groupby('fullName')['runs'].sum().sort_values(ascending=False).iloc[:150].index.tolist()
         runs = df.groupby('fullName')['runs'].sum()
