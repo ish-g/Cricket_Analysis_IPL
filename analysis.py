@@ -7,6 +7,7 @@ class Myclass:
         self.list1 = None
         self.df = pd.read_csv('all_season_summary.csv')
         self.df1 = pd.read_csv('all_season_details.csv', low_memory=False)
+        self.batter_df = pd.read_csv('all_season_batting_card.csv')
         self.player_played_dict = {}
 
     def seasons(self):  # 1- all seasons list for drop down
@@ -68,7 +69,8 @@ class Myclass:
     def highest_run(self):  # 7- Highest Run scored by a team st.metrics
         temp_df = self.df1[['match_id', 'innings_id', 'runs']]
         temp_df1 = temp_df.groupby(['match_id', 'innings_id'])['runs'].sum().reset_index().sort_values(by='runs',
-                                                                                                       ascending=False).head(1)
+                                                                                                       ascending=False).head(
+            1)
         q7 = self.df1.loc[(self.df1['match_id'] == temp_df1['match_id'].iloc[0]) & (
                 self.df1['innings_id'] == temp_df1['innings_id'].iloc[0])].iloc[0, [1, 3, 4]]
         return temp_df1['runs'].iloc[0], q7['home_team'], q7['season']
@@ -103,3 +105,38 @@ class Myclass:
         boundaries_run = temp_df[temp_df['isBoundary'] == True]['runs'].sum()
         boundary_pct = round(boundaries_run / total_run * 100)
         return boundary_pct
+
+    def batter_list(self):  # 13- return batsman name list
+        temp_df = self.batter_df['fullName']
+        return temp_df.sort_values().unique().tolist()
+
+    def batter_info(self, i):  # 14- batsman matches played in every season
+        df = self.batter_df[['fullName', 'match_id', 'season', 'runs', 'fours', 'sixes', 'ballsFaced']]
+        matches_p_season = df[(df['fullName'] == i)].groupby('season')['match_id'].count().sort_index(
+            ascending=False).rename('matches')
+        runs_p_season = df[(df['fullName'] == i)].groupby('season')['runs'].sum().sort_index(
+            ascending=False).astype('int')
+        balls_faced = df[(df['fullName'] == i)].groupby('season')['ballsFaced'].sum().sort_index(
+            ascending=False).astype('int')
+        strike_rate = ((runs_p_season / balls_faced) * 100).rename('strike rate').astype(int)
+        total_4 = df[(df['fullName'] == i)].groupby('season')['fours'].sum().sort_index(
+            ascending=False).astype('int')
+        total_6 = df[(df['fullName'] == i)].groupby('season')['sixes'].sum().sort_index(
+            ascending=False).astype('int')
+        return pd.concat([matches_p_season, runs_p_season, strike_rate, total_4, total_6], axis=1)
+
+    def players_sr(self):  # 15- players strike rate
+        df = self.batter_df[['fullName', 'runs', 'ballsFaced']]
+        players_list = df.groupby('fullName')['runs'].sum().sort_values(ascending=False).iloc[:150].index.tolist()
+        runs = df.groupby('fullName')['runs'].sum()
+        balls = df.groupby('fullName')['ballsFaced'].sum()
+        strike_rate = ((runs / balls) * 100).round().rename('strike rate').sort_values(ascending=False)
+        return strike_rate.sort_values(ascending=False).loc[players_list]
+
+    def players_sr(self):  # 16- plotly strike rate of batsman
+        df = self.batter_df[['fullName', 'runs', 'ballsFaced']]
+        players_list = df.groupby('fullName')['runs'].sum().sort_values(ascending=False).iloc[:150].index.tolist()
+        runs = df.groupby('fullName')['runs'].sum()
+        balls = df.groupby('fullName')['ballsFaced'].sum()
+        strike_rate = ((runs / balls) * 100).round().rename('strike rate').sort_values(ascending=False)
+        return strike_rate.loc[players_list].sort_index(ascending=True)

@@ -1,27 +1,11 @@
 import streamlit as st
 import analysis as an
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 obj1 = an.Myclass()
 
 st.set_page_config(layout="wide")
-
-
-def set_custom_theme():
-    st.markdown("""
-        <style>
-            .stApp {
-                background-color: #ffffff;
-                color: #333333;
-            }
-            .stTextInput > div > div {
-                background-color: ##000000;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-
-
-set_custom_theme()
 
 options = ['About', 'Season Wise Stats', 'Team Performance', 'Player Statistics', 'Match Insights',
            'Batsman Performance', 'Bowler Performance']
@@ -96,6 +80,12 @@ if user_input == 'Player Statistics':
     else:
         pass
 
+    temp_df1 = obj1.players_sr()  # 16
+    fig3 = px.scatter(temp_df1, x=temp_df1.index, y=temp_df1.values, size=temp_df1.values, color=temp_df1.values)
+    fig3.update_xaxes(title_text='Batsman')
+    fig3.update_yaxes(title_text='Strike Rate')
+    st.plotly_chart(fig3)
+
 if user_input == 'Match Insights':
     col41, col42 = st.columns(2)
     with col41:
@@ -127,3 +117,13 @@ if user_input == 'Match Insights':
         plt.xlabel("Value")
         plt.ylabel("score")
         st.pyplot(fig2)
+
+if user_input == 'Batsman Performance':
+    selected_batter = st.selectbox("Select the batter here", [""] + obj1.batter_list())  # 13
+    if selected_batter:
+        st.table(obj1.batter_info(selected_batter))
+        temp_df = obj1.batter_info(selected_batter)
+        fig1 = px.line(temp_df, x=temp_df.index, y='runs', title='Runs Over Time', labels={'runs': 'Runs', 'index': 'Date'})
+        st.plotly_chart(fig1)
+    else:
+        pass
