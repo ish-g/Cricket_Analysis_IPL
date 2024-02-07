@@ -45,18 +45,18 @@ Explore the performance of batsmen in the IPL. Dive into batting statistics, cen
 Analyze the performance of bowlers in the IPL. Explore bowling statistics, wicket counts, economy rates, maiden overs, and other metrics to assess the effectiveness of bowlers in restricting opposing teams.
 
 ## Usage
-### Install Dependencies:
 
-[//]: # (   ```bash)
-    pip install -r requirements.txt
+1. **Install Dependencies:** 
+   ```bash
+   pip install -r requirements.txt
 
-### Navigate to the Project Directory:
-[//]: # (   ```bash)
-    cd ipl-data-analysis
+2. **Navigate to the Project Directory:** 
+   ```bash
+   cd ipl-data-analysis
 
-### Run the Streamlit Web Application:
-[//]: # (   ```bash)
-    streamlit run app.py
+3. **Run the Streamlit Web Application:** 
+   ```bash
+   streamlit run streamlit_app.py
 
 ### Access the Web Application:
 Open your web browser and go to http://localhost:8501 to access the interactive Streamlit web application.
