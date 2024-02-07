@@ -3,6 +3,9 @@
 ## About
 Welcome to the IPL Data Science and Analysis Project! This project focuses on exploring and analyzing data related to the Indian Premier League (IPL), a premier professional Twenty20 cricket league in India. Our aim is to provide comprehensive insights into various aspects of IPL matches, teams, players, and more.
 
+## Web App Screenshot
+![Web App Screenshot](capture_webapp.png)
+
 ## 🚀 Features
 - ***Data Cleaning:*** Dive into a meticulously cleaned dataset, ensuring accuracy and consistency in every analysis.
 - ***Exploratory Data Analysis (EDA):*** Uncover fascinating insights through in-depth analysis of player performance, team statistics, and match outcomes.
