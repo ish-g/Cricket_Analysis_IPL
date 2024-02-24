@@ -50,7 +50,7 @@ Analyze the performance of bowlers in the IPL. Explore bowling statistics, wicke
    ```bash
    pip install -r requirements.txt
 
-   2. **Navigate to the Project Directory:** 
+2. **Navigate to the Project Directory:** 
    ```bash
    cd ipl-data-analysis
 
